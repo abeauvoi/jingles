@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import platform
 import itertools
 
@@ -11,6 +12,10 @@ counter = itertools.count(1)
 files = [f for f in os.listdir('.')
         if os.path.isfile(f)
         and os.path.splitext(f)[1][1:] in extensions]
+
+if len(files) == 0:
+    print("No file found. Exiting...")
+    sys.exit()
 
 menu = '\n'.join(['{a}. {b}'.format(a=next(counter), b=f) for f in files])
 
@@ -29,7 +34,7 @@ while choice not in range(len(files)):
     print("\nInvalid ID")
     choice = int(input(prompt)) - 1
 
-path = files[choice - 1]
+path = files[choice]
 
 path = path.translate(str.maketrans(
     {
