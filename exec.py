@@ -28,31 +28,33 @@ Found files:
 ------------
 Please enter the desired ID : """.format(menu)
 
-choice = int(input(prompt)) - 1
-
-while choice not in range(len(files)):
-    print("\nInvalid ID")
+while 1:
     choice = int(input(prompt)) - 1
 
-path = files[choice]
+    while choice not in range(len(files)):
+        print("\nInvalid ID")
+        choice = int(input(prompt)) - 1
 
-path = path.translate(str.maketrans(
-    {
-        "-":  r"\-",
-        "]":  r"\]",
-        "\\": r"\\",
-        "^":  r"\^",
-        "$":  r"\$",
-        "*":  r"\*",
-        ".":  r"\.",
-        "(":  r"\(",
-        ")":  r"\)",
-        " ":  r"\ "
-    }))
+    path = files[choice]
 
-if platform.system() == 'Windows':
-    cmd = "vlc -q --start-time=00 "
-else:
-    cmd = "/Applications/VLC.app/Contents/MacOS/VLC -q --start-time=00 "
+    path = path.translate(str.maketrans(
+        {
+            "-":  r"\-",
+            "]":  r"\]",
+            "\\": r"\\",
+            "^":  r"\^",
+            "$":  r"\$",
+            "*":  r"\*",
+            ".":  r"\.",
+            "(":  r"\(",
+            ")":  r"\)",
+            " ":  r"\ "
+        }))
 
-os.system(cmd + path)
+    if platform.system() == 'Windows':
+        path = path.translate(str.maketrans({"/": "\\"})
+        cmd = "vlc -q --start-time=00 "
+    else:
+        cmd = "/Applications/VLC.app/Contents/MacOS/VLC -q --start-time=00 "
+
+    os.system(cmd + path)
