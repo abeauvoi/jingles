@@ -48,11 +48,12 @@ while 1:
             ".":  r"\.",
             "(":  r"\(",
             ")":  r"\)",
-            " ":  r"\ "
+            " ":  r"\ ",
+            "|":  r"\|"
         }))
 
     if platform.system() == 'Windows':
-        path = path.translate(str.maketrans({"/": "\\"})
+        path = path.translate(str.maketrans({"/": "\\"}))
         cmd = "vlc -q --start-time=00 "
     else:
         cmd = "/Applications/VLC.app/Contents/MacOS/VLC -q --start-time=00 "
