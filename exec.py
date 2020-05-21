@@ -41,7 +41,6 @@ while 1:
         {
             "-":  r"\-",
             "]":  r"\]",
-            "\\": r"\\",
             "^":  r"\^",
             "$":  r"\$",
             "*":  r"\*",
@@ -53,9 +52,10 @@ while 1:
         }))
 
     if platform.system() == 'Windows':
-        path = path.translate(str.maketrans({"/": "\\"}))
-        cmd = "vlc -q --start-time=00 "
+        path = path.translate(str.maketrans({"/": r"\/"}))
+        cmd = "vlc -q --start-time=00 --qt-start-minimized"
     else:
+        path = path.translate(str.maketrans({"\\": r"\\"}))
         cmd = "/Applications/VLC.app/Contents/MacOS/VLC -q --start-time=00 "
 
     os.system(cmd + path)
